@@ -9,7 +9,8 @@ CATEGORIES_PATH = os.path.join(os.path.dirname(__file__), "categories.json")
 
 print(f"Database path: {DB_PATH}")
 
-mcp = FastMCP("ExpenseTracker")
+# Add dependencies list so the cloud server installs them
+mcp = FastMCP("ExpenseTracker", dependencies=["aiosqlite"])
 
 def init_db():  # Keep as sync for initialization
     try:
@@ -128,5 +129,5 @@ def categories():
 
 # Start the server
 if __name__ == "__main__":
-    mcp.run(transport="http", host="0.0.0.0", port=8000)
-    # mcp.run()
+    # This allows the cloud platform to wrap your server correctly
+    mcp.run()
